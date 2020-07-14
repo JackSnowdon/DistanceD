@@ -14,9 +14,11 @@
         <div class="col-12">
             <a href="{% url 'add_base' %}" role="button" class="btn btn-success" aria-disabled="false">Add Sheet</a>
             <h4>Sheets:</h4>
-            {% for sheet in sheets %}
-            <p>- {{ sheet }}</p>
-            {% endfor %}
+            <ul class="sheet-list">
+                {% for sheet in sheets %}
+                <li class="sheet-list-item">{{ sheet }} <a href="{% url 'edit_base' sheet.id %}" class="sheet-list-edit"><i class="far fa-edit"></i></a></li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 </section>

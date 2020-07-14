@@ -1,0 +1,62 @@
+{% extends 'base.html' %} {% load static %} {% load crispy_forms_tags %} {% block page_title %} Edit {{ this_sheet }} | DND {% endblock %} {% block content %}
+
+<section class="button-nav">
+    <div class="row mb-5">
+        <div class="col-12">
+            <a href="{% url 'sheet_index' %}" role="button" class="btn btn-warning" aria-disabled="false">Back</a>
+        </div>
+    </div>
+</section>
+
+<div class="row">
+    <div class="col-12 text-center">
+        <h1>Editing {{ this_sheet }}</h1>
+    </div>
+</div>
+
+<form role="form" method="post" id="edit_base">
+    <div class="form-group body-text">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-6 mb-0">
+                {{ base_form.name|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+                {{ base_form.max_hit_points|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-2 mb-0">
+                {{ base_form.level|as_crispy_field }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-2 mb-0">
+                {{ base_form.strengh|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-2 mb-0">
+                {{ base_form.dexterity|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-2 mb-0">
+                {{ base_form.constitution|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-2 mb-0">
+                {{ base_form.intelligence|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-2 mb-0">
+                {{ base_form.wisdom|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-2 mb-0">
+                {{ base_form.charisma|as_crispy_field }}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-12 text-center">
+                <input class="btn btn-success" id="edit_base" name="commit" type="submit" value="Edit {{ this_sheet }}">
+            </div>
+        </div>
+        <br>
+    </div>
+</form>
+
+
+{% endblock %}

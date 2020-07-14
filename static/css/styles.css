@@ -47,3 +47,47 @@
     font-weight: 700;
     font-size: 2.75rem;
 }
+
+
+/* Lists */
+
+.sheet-list {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.sheet-list-item {
+    font-size: 20px;
+    padding-bottom: 0.45rem;
+}
+
+.sheet-list-item a {
+    transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -webkit-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    text-decoration: none;
+}
+
+.sheet-list-item a:hover {
+    color: #359468;
+}
+
+.sheet-list-edit {
+    font-size: 75%;
+    color: #C64268;
+}
+
+
+/* Admin/Profile */
+
+.table {
+    background-color: #d2d2d2;
+}
+
+tr {
+    transition: all 0.35s ease-in-out;
+    -moz-transition: all 0.35s ease-in-out;
+    -webkit-transition: all 0.35s ease-in-out;
+    -o-transition: all 0.35s ease-in-out;
+}

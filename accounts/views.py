@@ -118,14 +118,3 @@ def change_staff_access(request, pk):
             request, "You Don't Have The Required Permissions", extra_tags="alert"
         )
         return redirect("world_index")
-
-
-# Helper Functions
-
-
-def get_lifetime_amount(data, excerise):
-    amount = 0
-    dataset = data.filter(workout_type__name=excerise)
-    for d in dataset:
-        amount += d.amount
-    return dataset, amount

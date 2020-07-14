@@ -12,6 +12,7 @@ def sheet_index(request):
     sheets = profile.sheets.all()
     return render(request, "sheet_index.html", {"sheets": sheets})
 
+
 @login_required
 def add_base(request):
     if request.method == "POST":
@@ -26,3 +27,31 @@ def add_base(request):
     else:
         base_form = BaseForm()
     return render(request, "add_base.html", {"base_form": base_form})
+
+
+@login_required
+def edit_base(request, pk):
+    this_sheet = get_object_or_404(Base, pk=pk)
+    profile = request.user.profile
+    if profile == this_sheet.created_by or profile.staff_access:
+        if request.method == "POST":
+            base_form = BaseForm(request.POST, instance=this_sheet)
+            if base_form.is_valid():
+                form = base_form.save(commit=False)
+                form.save()
+                messages.error(
+                    request, "Edited {0}".format(form.name), extra_tags="alert"
+                )
+                return redirect("sheet_index")
+        else:
+            base_form = BaseForm(instance=this_sheet)
+        return render(
+            request,
+            "edit_base.html",
+            {"base_form": base_form, "this_sheet": this_sheet},
+        )
+    else:
+        messages.error(
+            request, "You Don't Have The Required Permissions", extra_tags="alert"
+        )
+        return redirect("sheet_index")
