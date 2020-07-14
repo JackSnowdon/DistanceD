@@ -1,6 +1,28 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .models import *
+from .forms import *
 
 # Create your views here.
 
+@login_required
 def sheet_index(request):
-    return render(request, "sheet_index.html")
+    profile = request.user.profile
+    sheets = profile.sheets.all()
+    return render(request, "sheet_index.html", {"sheets": sheets})
+
+@login_required
+def add_base(request):
+    if request.method == "POST":
+        base_form = BaseForm(request.POST)
+        if base_form.is_valid():
+            profile = request.user.profile
+            form = base_form.save(commit=False)
+            form.created_by = profile
+            form.save()
+            messages.error(request, 'Created {0}'.format(form.name), extra_tags='alert')
+            return redirect("sheet_index")
+    else:
+        base_form = BaseForm()
+    return render(request, "add_base.html", {"base_form": base_form})

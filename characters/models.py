@@ -12,7 +12,6 @@ class Base(models.Model):
     intelligence = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(20)], default=0)
     wisdom = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(20)], default=0)
     charisma = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(20)], default=0)
-    fellowship = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(20)], default=0)
     level = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(20)], default=0)
     max_hit_points = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(10000)], default=0)
     created_by = models.ForeignKey(Profile, related_name='sheets', on_delete=models.PROTECT)
