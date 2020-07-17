@@ -24,7 +24,7 @@
 }
 
 .nav-bg a:hover {
-    color: #C64268;
+    color: #f4f4f4;
 }
 
 .nav-button {
@@ -75,7 +75,13 @@
 
 .sheet-list-edit {
     font-size: 75%;
-    color: #C64268;
+    color: #a4bd16;
+}
+
+.sheet-list-delete {
+    font-size: 75%;
+    padding-left: 2.5px;
+    color: #c90909;
 }
 
 

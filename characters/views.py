@@ -55,3 +55,20 @@ def edit_base(request, pk):
             request, "You Don't Have The Required Permissions", extra_tags="alert"
         )
         return redirect("sheet_index")
+
+
+@login_required
+def delete_base(request, pk):
+    this_sheet = get_object_or_404(Base, pk=pk)
+    profile = request.user.profile
+    if profile == this_sheet.created_by or profile.staff_access:
+        this_sheet.delete()
+        messages.error(
+            request, f"Deleted {this_sheet.name}", extra_tags="alert"
+        )
+        return redirect(reverse("sheet_index"))
+    else:
+        messages.error(
+            request, "You Don't Have The Required Permissions", extra_tags="alert"
+        )
+        return redirect("sheet_index")

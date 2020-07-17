@@ -12,11 +12,11 @@
 <section class="sheets">
     <div class="row">
         <div class="col-12">
-            <a href="{% url 'add_base' %}" role="button" class="btn btn-success" aria-disabled="false">Add Sheet</a>
+            <a href="{% url 'add_base' %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Add Sheet</a>
             <h4>Sheets:</h4>
             <ul class="sheet-list">
                 {% for sheet in sheets %}
-                <li class="sheet-list-item">{{ sheet }} <a href="{% url 'edit_base' sheet.id %}" class="sheet-list-edit"><i class="far fa-edit"></i></a></li>
+                <li class="sheet-list-item">{{ sheet }} <a href="{% url 'edit_base' sheet.id %}" class="sheet-list-edit"><i class="far fa-edit"></i></a><a href="{% url 'delete_base' sheet.id %}" class="sheet-list-delete"><i class="far fa-trash-alt"></i></a></li>
                 {% endfor %}
             </ul>
         </div>
