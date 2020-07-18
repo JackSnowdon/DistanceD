@@ -58,6 +58,19 @@ def edit_base(request, pk):
 
 
 @login_required
+def view_base(request, pk):
+    profile = request.user.profile
+    this_base = get_object_or_404(Base, pk=pk)
+    if profile == this_base.created_by or profile.staff_access:
+        return render(request, "view_base.html", {"this_base": this_base})
+    else:
+        messages.error(
+            request, "You Don't Have The Required Permissions", extra_tags="alert"
+        )
+        return redirect("sheet_index")
+    
+
+@login_required
 def delete_base(request, pk):
     this_sheet = get_object_or_404(Base, pk=pk)
     profile = request.user.profile

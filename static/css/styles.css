@@ -58,7 +58,7 @@
 
 .sheet-list-item {
     font-size: 20px;
-    padding-bottom: 0.45rem;
+    padding-bottom: 0.40rem;
 }
 
 .sheet-list-item a {
@@ -71,6 +71,10 @@
 
 .sheet-list-item a:hover {
     color: #359468;
+}
+
+.sheet-list-single {
+    color: black;
 }
 
 .sheet-list-edit {
