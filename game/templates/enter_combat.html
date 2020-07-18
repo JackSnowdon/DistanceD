@@ -8,12 +8,28 @@
     </div>
 </section>
 
-<div class="row">
-    <div class="col-12 text-center">
-        <h1>{{ this_combat.name }}</h1>
-        <h5>DM: {{ this_combat.dm }}</h5>
+<section class="combat-header">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1>{{ this_combat.name }}</h1>
+            <h5>DM: {{ this_combat.dm }}</h5>
+        </div>
     </div>
-</div>
+</section>
 
-
-{% endblock %}
+{% if this_combat.dm == user.profile %}
+<section class="dm-tools">
+    <div class="row">
+        <div class="col-12">
+            <a href="{% url 'add_combat_member' this_combat.pk  %}" role="button" class="btn btn-warning mb-2" aria-disabled="false">Add Comabt Member</a>
+            <h4>Combat Members:</h4>
+        </div>
+        {% for c in combat_members %}
+        <div class="col-4">
+            <p>{{ c.name }}</p>
+            <p>Initiative: {{ c.initiative }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %} {% endblock %}

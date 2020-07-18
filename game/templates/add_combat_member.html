@@ -1,0 +1,48 @@
+{% extends 'base.html' %} {% load static %} {% load crispy_forms_tags %} {% block page_title %} New Combat Member | Distanced DND {% endblock %} {% block content %}
+
+<section class="button-nav">
+    <div class="row mb-5">
+        <div class="col-12">
+            <a href="{% url 'enter_combat' this_combat.pk %}" role="button" class="btn btn-warning" aria-disabled="false">Back</a>
+        </div>
+    </div>
+</section>
+
+<div class="row">
+    <div class="col-12 text-center">
+        <h1>New Combat Instance</h1>
+    </div>
+</div>
+
+<form role="form" method="post" id="new_combat_instance" action="{% url 'add_combat_member' this_combat.pk %}">
+    <div class="form-group body-text">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-4 mb-0">
+                {{ combat_form.name|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-2 mb-0">
+                {{ combat_form.initiative|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-2 mb-0">
+                {{ combat_form.current_hit_points|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-2 mb-0">
+                {{ combat_form.max_hit_points|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-2 mb-0">
+                {{ combat_form.enemy|as_crispy_field }}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-12 text-center">
+                <input class="btn btn-success" id="sumbit_combat_instance" name="commit" type="submit" value="Add To Combat">
+            </div>
+        </div>
+        <br>
+    </div>
+</form>
+
+
+{% endblock %}

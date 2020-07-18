@@ -30,7 +30,8 @@ def new_combat_instance(request):
 @login_required
 def enter_combat(request, pk):
     this_combat = get_object_or_404(CombatInstance, pk=pk)
-    return render(request, "enter_combat.html", {"this_combat": this_combat})
+    combat_members = this_combat.sheets.order_by("-initiative")
+    return render(request, "enter_combat.html", {"this_combat": this_combat, "combat_members": combat_members})
 
 
 @login_required
@@ -49,3 +50,18 @@ def delete_combat(request, pk):
         )
         return redirect("game_index")
 
+
+@login_required
+def add_combat_member(request, pk):
+    this_combat = get_object_or_404(CombatInstance, pk=pk)
+    if request.method == "POST":
+        combat_form = NewCombatMember(request.POST)
+        if combat_form.is_valid():
+            form = combat_form.save(commit=False)
+            form.game = this_combat
+            form.save()
+            messages.error(request, "Added {0}".format(form.name), extra_tags="alert")
+            return redirect("enter_combat", this_combat.pk)
+    else:
+        combat_form = NewCombatMember()
+    return render(request, "add_combat_member.html", {"combat_form": combat_form, "this_combat": this_combat })
