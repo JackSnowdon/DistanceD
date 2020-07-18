@@ -8,4 +8,18 @@
     </div>
 </section>
 
+<section class="combats">
+    <div class="row">
+        <div class="col-12">
+            <a href="{% url 'new_combat_instance' %}" role="button" class="btn btn-warning mb-2" aria-disabled="false">New Combat</a>
+            <h4>Combat Instances:</h4>
+            {% for c in combats %}
+            <p class="combat-link">- <a href="{% url 'enter_combat' c.pk %}">{{ c.name }}</a>
+                <a href="{% url 'delete_combat' c.pk %}" class="delete-combat"><i class="far fa-trash-alt"></i></a>
+            </p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
 {% endblock %}

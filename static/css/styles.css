@@ -85,6 +85,22 @@
 }
 
 
+/* Combat */
+
+.combat-link a {
+    color: black;
+    transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -webkit-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    text-decoration: none;
+}
+
+.combat-link a:hover {
+    color: #359468;
+}
+
+
 /* Admin/Profile */
 
 .table {
