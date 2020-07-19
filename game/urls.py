@@ -7,4 +7,6 @@ urlpatterns = [
     path(r'enter_combat/<int:pk>/', enter_combat, name="enter_combat"),
     path(r'delete_combat/<int:pk>/', delete_combat, name="delete_combat"),
     path(r'add_combat_member/<int:pk>/', add_combat_member, name="add_combat_member"),
+    path(r'edit_combat_member/<int:pk>/', edit_combat_member, name="edit_combat_member"),
+    path(r'delete_combat_member/<int:pk>/', delete_combat_member, name="delete_combat_member"),
 ]

@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% load static %} {% load crispy_forms_tags %} {% block page_title %} New Combat Member | Distanced DND {% endblock %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% load crispy_forms_tags %} {% block page_title %} Edit {{ this_member }} | Distanced DND {% endblock %} {% block content %}
 
 <section class="button-nav">
     <div class="row mb-5">
@@ -10,11 +10,11 @@
 
 <div class="row mb-3">
     <div class="col-12 text-center">
-        <h3>New Combat Member</h3>
+        <h2>Edit {{ this_member }}</h2>
     </div>
 </div>
 
-<form role="form" method="post" id="new_combat_member" action="{% url 'add_combat_member' this_combat.pk %}">
+<form role="form" method="post" id="edit_combat_member">
     <div class="form-group body-text">
         {% csrf_token %}
         <div class="form-row">
@@ -37,7 +37,7 @@
         <br>
         <div class="row">
             <div class="col-12 text-center">
-                <input class="btn btn-success" id="sumbit_combat_member" name="commit" type="submit" value="Add To Combat">
+                <input class="btn btn-success" id="enter_combat_member" name="commit" type="submit" value="Edit">
             </div>
         </div>
         <br>

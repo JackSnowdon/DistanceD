@@ -21,7 +21,7 @@
 <section class="dm-tools">
     <div class="row mb-3">
         <div class="col-12">
-            <a href="{% url 'add_combat_member' this_combat.pk  %}" role="button" class="btn btn-warning mb-2" aria-disabled="false">Add Comabt Member</a>
+            <a href="{% url 'add_combat_member' this_combat.pk  %}" role="button" class="btn btn-warning mb-2" aria-disabled="false">Add Combat Member</a>
             <h4>Combat Members:</h4>
         </div>
     </div>
@@ -39,7 +39,17 @@
                             <p class="card-text">HP</br>{{ c.current_hit_points }}/{{ c.max_hit_points }}</p>
                         </div>
                     </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-6">
+                            <a href="{% url 'delete_combat_member' c.pk  %}" role="button" class="btn btn-danger mb-2" aria-disabled="false">Delete</a>
+                        </div>
+                        <div class="col-6">
+                            <a href="{% url 'edit_combat_member' c.pk  %}" role="button" class="btn btn-warning mb-2" aria-disabled="false">Edit</a>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
         {% endfor %}
