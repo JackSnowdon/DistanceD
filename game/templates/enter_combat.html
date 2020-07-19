@@ -22,12 +22,13 @@
     <div class="row mb-3 text-center">
         <div class="col-6">
             {% if this_combat.combat_state == False %}
-            <a href="{% url 'add_combat_member' this_combat.pk  %}" role="button" class="btn btn-warning mb-2" aria-disabled="false">Add Combat Member</a> {% else %} {% endif %}
+            <a href="{% url 'add_combat_member' this_combat.pk  %}" role="button" class="btn btn-warning mb-2" aria-disabled="false">Add Combat Member</a>{% else %}
+            <a href="{% url 'next_turn' this_combat.pk  %}" role="button" class="btn btn-warning mb-2" aria-disabled="false">Next Turn</a>{% endif %}
         </div>
         <div class="col-6">
             {% if this_combat.combat_state == False %}
-            <a href="{% url 'start_combat' this_combat.pk  %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Start Combat</a> {% else %}
-            <a href="{% url 'end_combat' this_combat.pk  %}" role="button" class="btn btn-danger mb-2" aria-disabled="false">End Combat</a> {% endif %}
+            <a href="{% url 'start_combat' this_combat.pk  %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Start Combat</a>{% else %}
+            <a href="{% url 'end_combat' this_combat.pk  %}" role="button" class="btn btn-danger mb-2" aria-disabled="false">End Combat</a>{% endif %}
         </div>
     </div>
     <div class="row">

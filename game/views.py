@@ -154,3 +154,31 @@ def end_combat(request, pk):
         )
     return redirect("enter_combat", this_combat.pk)
 
+
+@login_required
+def next_turn(request, pk):
+    profile = request.user.profile
+    this_combat = get_object_or_404(CombatInstance, pk=pk)
+    if profile == this_combat.dm or profile.staff_access:
+        combat_members = this_combat.sheets.order_by("-initiative")
+        battle_size = combat_members.count()
+        current_go = 0
+        next_go = 0
+        for c in combat_members:
+            current_go += 1
+            if c.turn_state == True:
+                next_go = current_go
+                c.turn_state = False
+                c.save()
+
+        print(next_go, battle_size)
+
+        turnee = combat_members[next_go]
+        turnee.turn_state = True
+        turnee.save()
+
+    else:
+        messages.error(
+            request, "You Don't Have The Required Permissions", extra_tags="alert"
+        )
+    return redirect("enter_combat", this_combat.pk)
