@@ -9,4 +9,6 @@ urlpatterns = [
     path(r'add_combat_member/<int:pk>/', add_combat_member, name="add_combat_member"),
     path(r'edit_combat_member/<int:pk>/', edit_combat_member, name="edit_combat_member"),
     path(r'delete_combat_member/<int:pk>/', delete_combat_member, name="delete_combat_member"),
+    path(r'start_combat/<int:pk>/', start_combat, name="start_combat"),
+    path(r'end_combat/<int:pk>/', end_combat, name="end_combat"),
 ]

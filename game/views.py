@@ -117,3 +117,40 @@ def delete_combat_member(request, pk):
             request, "You Don't Have The Required Permissions", extra_tags="alert"
         )
         return redirect("enter_combat", this_combat.pk)
+
+    
+@login_required
+def start_combat(request, pk):
+    this_combat = get_object_or_404(CombatInstance, pk=pk)
+    profile = request.user.profile
+    if profile == this_combat.dm or profile.staff_access:
+        combat_members = this_combat.sheets.order_by("-initiative")
+        this_combat.combat_state = True
+        this_combat.save()
+        first = combat_members[0]
+        first.turn_state = True
+        first.save()
+    else:
+        messages.error(
+            request, "You Don't Have The Required Permissions", extra_tags="alert"
+        )
+    return redirect("enter_combat", this_combat.pk)
+
+
+@login_required
+def end_combat(request, pk):
+    profile = request.user.profile
+    this_combat = get_object_or_404(CombatInstance, pk=pk)
+    if profile == this_combat.dm or profile.staff_access:
+        combat_members = this_combat.sheets.order_by("-initiative")
+        this_combat.combat_state = False
+        this_combat.save()
+        for c in combat_members:
+            c.turn_state = False
+            c.save()
+    else:
+        messages.error(
+            request, "You Don't Have The Required Permissions", extra_tags="alert"
+        )
+    return redirect("enter_combat", this_combat.pk)
+

@@ -36,7 +36,7 @@
 }
 
 .logged-in {
-    color: #020704;
+    color: #f4f4f4;
     margin: 8px 2px;
 }
 
@@ -102,6 +102,10 @@
 
 .combat-link a:hover {
     color: #359468;
+}
+
+.this-turn {
+    border: 1.75px solid #359468;
 }
 
 
