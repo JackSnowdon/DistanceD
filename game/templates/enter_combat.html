@@ -52,12 +52,21 @@
                     </div>
                     <hr>
                     <div class="row">
+                        {% if c.turn_state == True %}
+                        <div class="col-6">
+                            <a href="#" role="button" class="btn btn-danger mb-2" aria-disabled="false">Attack</a>
+                        </div>
+                        <div class="col-6">
+                            <a href="#" role="button" class="btn btn-success mb-2" aria-disabled="false">Heal</a>
+                        </div>
+                        {% else %}
                         <div class="col-6">
                             <a href="{% url 'delete_combat_member' c.pk  %}" role="button" class="btn btn-danger mb-2" aria-disabled="false">Delete</a>
                         </div>
                         <div class="col-6">
                             <a href="{% url 'edit_combat_member' c.pk  %}" role="button" class="btn btn-warning mb-2" aria-disabled="false">Edit</a>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

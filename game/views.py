@@ -170,13 +170,14 @@ def next_turn(request, pk):
                 next_go = current_go
                 c.turn_state = False
                 c.save()
-
-        print(next_go, battle_size)
-
-        turnee = combat_members[next_go]
-        turnee.turn_state = True
-        turnee.save()
-
+        if next_go == battle_size:
+            first = combat_members[0]
+            first.turn_state = True
+            first.save()
+        else:
+            turnee = combat_members[next_go]
+            turnee.turn_state = True
+            turnee.save()
     else:
         messages.error(
             request, "You Don't Have The Required Permissions", extra_tags="alert"
