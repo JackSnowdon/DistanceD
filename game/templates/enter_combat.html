@@ -19,15 +19,28 @@
 
 {% if this_combat.dm == user.profile %}
 <section class="dm-tools">
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-12">
             <a href="{% url 'add_combat_member' this_combat.pk  %}" role="button" class="btn btn-warning mb-2" aria-disabled="false">Add Comabt Member</a>
             <h4>Combat Members:</h4>
         </div>
+    </div>
+    <div class="row text-center">
         {% for c in combat_members %}
-        <div class="col-4">
-            <p>{{ c.name }}</p>
-            <p>Initiative: {{ c.initiative }}</p>
+        <div class="col-md-4 col-12">
+            <div class="card mb-5">
+                <div class="card-body">
+                    <h5 class="card-title">{{ c.name|title }}</h5>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="card-text">Initiative</br>{{ c.initiative }}</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="card-text">HP</br>{{ c.current_hit_points }}/{{ c.max_hit_points }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         {% endfor %}
     </div>

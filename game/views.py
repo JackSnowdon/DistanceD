@@ -58,10 +58,15 @@ def add_combat_member(request, pk):
         combat_form = NewCombatMember(request.POST)
         if combat_form.is_valid():
             form = combat_form.save(commit=False)
-            form.game = this_combat
-            form.save()
-            messages.error(request, "Added {0}".format(form.name), extra_tags="alert")
-            return redirect("enter_combat", this_combat.pk)
+            if form.current_hit_points > form.max_hit_points:
+                messages.error(request, f"Current HP ({form.current_hit_points}) can't exceed Max HP ({form.max_hit_points})", extra_tags="alert")
+            else:
+                if form.current_hit_points == 0:
+                    form.current_hit_points = form.max_hit_points
+                form.game = this_combat
+                form.save()
+                messages.error(request, "Added {0}".format(form.name), extra_tags="alert")
+                return redirect("enter_combat", this_combat.pk)
     else:
         combat_form = NewCombatMember()
     return render(request, "add_combat_member.html", {"combat_form": combat_form, "this_combat": this_combat })
