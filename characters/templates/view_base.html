@@ -10,7 +10,7 @@
 
 <div class="row">
     <div class="col-12 text-center">
-        <h1>Editing {{ this_base }}</h1>
+        <h1>{{ this_base }}</h1>
     </div>
 </div>
 
@@ -25,22 +25,34 @@
     </div>
     <div class="row">
         <div class="col-md-2">
-            <p>Str </br>{{ this_base.strengh }}</p>
+            <h4>Str:</h4>
+            <h5>{{ mod.0 }}</h5>
+            <p>{{ this_base.strengh }}</p>
         </div>
         <div class="col-md-2">
-            <p>Dex </br>{{ this_base.dexterity }}</p>
+            <h4>Dex:</h4>
+            <h5>{{ mod.1 }}</h5>
+            <p>{{ this_base.dexterity }}</p>
         </div>
         <div class="col-md-2">
-            <p>Con </br>{{ this_base.constitution }}</p>
+            <h4>Con: </h4>
+            <h5>{{ mod.2 }}</h5>
+            <p>{{ this_base.constitution }}</p>
         </div>
         <div class="col-md-2">
-            <p>Int </br>{{ this_base.intelligence }}</p>
+            <h4>Int:</h4>
+            <h5>{{ mod.3 }}</h5>
+            <p>{{ this_base.intelligence }}</p>
         </div>
         <div class="col-md-2">
-            <p>Wis </br>{{ this_base.wisdom }}</p>
+            <h4>Wis:</h4>
+            <h5>{{ mod.4 }}</h5>
+            <p>{{ this_base.wisdom }}</p>
         </div>
         <div class="col-md-2">
-            <p>Cha </br>{{ this_base.charisma }}</p>
+            <h4>Cha:</h4>
+            <h5>{{ mod.5 }}</h5>
+            <p>{{ this_base.charisma }}</p>
         </div>
     </div>
 </section>

@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
+import math
 
 # Create your views here.
 
@@ -62,7 +63,8 @@ def view_base(request, pk):
     profile = request.user.profile
     this_base = get_object_or_404(Base, pk=pk)
     if profile == this_base.created_by or profile.staff_access:
-        return render(request, "view_base.html", {"this_base": this_base})
+        mod = return_ability_modifiers(this_base)
+        return render(request, "view_base.html", {"this_base": this_base, "mod": mod})
     else:
         messages.error(
             request, "You Don't Have The Required Permissions", extra_tags="alert"
@@ -85,3 +87,18 @@ def delete_base(request, pk):
             request, "You Don't Have The Required Permissions", extra_tags="alert"
         )
         return redirect("sheet_index")
+
+
+# Helper Functions
+
+
+def return_ability_modifiers(b):
+    modifiers = []
+    str_mod = math.floor((b.strengh - 10) / 2)
+    dex_mod = math.floor((b.dexterity - 10) / 2)
+    con_mod = math.floor((b.constitution - 10) / 2)
+    int_mod = math.floor((b.intelligence- 10) / 2)
+    wis_mod = math.floor((b.wisdom - 10) / 2)
+    cha_mod = math.floor((b.charisma - 10) / 2)
+    modifiers.extend((str_mod, dex_mod, con_mod, int_mod, wis_mod, cha_mod))
+    return modifiers
