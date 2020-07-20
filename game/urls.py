@@ -13,4 +13,5 @@ urlpatterns = [
     path(r'end_combat/<int:pk>/', end_combat, name="end_combat"),
     path(r'next_turn/<int:pk>/', next_turn, name="next_turn"),
     path(r'attack/<int:pk>/<int:attacker>/', attack, name="attack"),
+    path(r'heal/<int:pk>/<int:attacker>/', heal, name="heal"),
 ]

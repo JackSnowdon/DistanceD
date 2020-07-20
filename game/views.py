@@ -200,15 +200,44 @@ def next_turn(request, pk):
 def attack(request, pk, attacker):
     profile = request.user.profile
     this_combat = get_object_or_404(CombatInstance, pk=pk)
+    attacker = get_object_or_404(CombatMember, pk=attacker)
     if profile == this_combat.dm or profile.staff_access:
         if request.method == "POST":
             damage = request.POST.get("damage")
             target = request.POST.get("target")
-            
+            defender = get_object_or_404(CombatMember, pk=target)
+            defender.current_hit_points -= int(damage)
+            defender.save()
+            messages.error(
+                request, f"{attacker} Hit {defender} For {damage} HP!", extra_tags="alert"
+            )
+            return redirect("next_turn", this_combat.pk)
     else:
         messages.error(
             request, "You Don't Have The Required Permissions", extra_tags="alert"
         )
     return redirect("enter_combat", this_combat.pk)
 
+
+@login_required
+def heal(request, pk, attacker):
+    profile = request.user.profile
+    this_combat = get_object_or_404(CombatInstance, pk=pk)
+    attacker = get_object_or_404(CombatMember, pk=attacker)
+    if profile == this_combat.dm or profile.staff_access:
+        if request.method == "POST":
+            hp = request.POST.get("heal-points")
+            target = request.POST.get("target")
+            defender = get_object_or_404(CombatMember, pk=target)
+            defender.current_hit_points += int(hp)
+            defender.save()
+            messages.error(
+                request, f"{attacker} Heals {defender} For {hp} HP!", extra_tags="alert"
+            )
+            return redirect("next_turn", this_combat.pk)
+    else:
+        messages.error(
+            request, "You Don't Have The Required Permissions", extra_tags="alert"
+        )
+    return redirect("enter_combat", this_combat.pk)
 

@@ -58,19 +58,18 @@
                     <div class="row">
                         {% if c.turn_state == True %}
                         <div class="col-6">
-                            <a data-toggle="modal" href="#attackModel{{ c.pk }}" class="btn btn-success mb-2">Attack</a>
+                            <a data-toggle="modal" href="#attackModel{{ c.pk }}" class="btn btn-success mb-3">Attack</a>
                         </div>
                         <div class="col-6">
-
+                            <a data-toggle="modal" href="#healModel{{ c.pk }}" class="btn btn-info mb-3">Heal</a>
                         </div>
-                        {% else %}
+                        {% endif %}
                         <div class="col-6 ">
                             <a href="{% url 'delete_combat_member' c.pk %}" role="button" class="btn btn-danger mb-2" aria-disabled="false">Delete</a>
                         </div>
                         <div class="col-6 ">
                             <a href="{% url 'edit_combat_member' c.pk %}" role="button" class="btn btn-warning mb-2" aria-disabled="false">Edit</a>
                         </div>
-                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -100,7 +99,7 @@
                                             <label for="enemy-list">Select Target:</label>
                                             <select class="form-control" id="enemy-list" name="target">
                                                 {% for e in enemies %}
-                                                <option>{{ e.name }}</option>
+                                                <option value="{{ e.pk }}">{{ e.name }}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>
@@ -111,10 +110,56 @@
                                 <div class="row text-center">
                                     <div class="col-12">
                                         <label for="damage">Attack Damage:</label>
-                                        <input type="number" class="attack-damage mb-3 form-control" id="damage" name="damage" min="1" max="500" placeholder="1">
+                                        <input type="number" class="attack-damage mb-3 form-control" id="damage" name="damage" min="1" max="500">
                                     </div>
                                     <div class="col-12">
                                         <input class="btn btn-success" id="submit-attack" name="commit" type="submit" value="Attack">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ATTACK MODEL -->
+
+        <div class="modal" id="healModel{{ c.pk }}">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4>{{ c.name }} Heals!</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form role="form" method="post" id="heal_form" action="{% url 'heal' this_combat.pk c.pk %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="row text-center">
+                                    <div class="form-group target-list">
+                                        <div class="col-12 text-center">
+                                            <label for="ally-list">Select Target:</label>
+                                            <select class="form-control" id="ally-list" name="target">
+                                                {% for a in allies %}
+                                                <option value="{{ a.pk }}">{{ a.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row text-center">
+                                    <div class="col-12">
+                                        <label for="heal-points">Healed For:</label>
+                                        <input type="number" class="heal-damage mb-3 form-control" id="heal-points" name="heal-points" min="1" max="500">
+                                    </div>
+                                    <div class="col-12">
+                                        <input class="btn btn-success" id="submit-heal" name="commit" type="submit" value="Heal">
                                     </div>
                                 </div>
                             </div>
