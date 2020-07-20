@@ -108,6 +108,14 @@
     border: 1.75px solid #359468;
 }
 
+.card-ally {
+    color: #359468;
+}
+
+.card-enemy {
+    color: #c90909;
+}
+
 
 /* Admin/Profile */
 

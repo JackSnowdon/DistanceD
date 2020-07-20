@@ -31,7 +31,18 @@ def new_combat_instance(request):
 def enter_combat(request, pk):
     this_combat = get_object_or_404(CombatInstance, pk=pk)
     combat_members = this_combat.sheets.order_by("-initiative")
-    return render(request, "enter_combat.html", {"this_combat": this_combat, "combat_members": combat_members})
+    if this_combat.combat_state == False:
+        return render(request, "enter_combat.html", {"this_combat": this_combat, "combat_members": combat_members})
+    else:
+        turnee = combat_members.filter(turn_state=True)
+        if turnee[0].enemy == False:
+            allies = combat_members.filter(enemy=False)
+            enemies = combat_members.filter(enemy=True)
+        else:
+            allies = combat_members.filter(enemy=True)
+            enemies = combat_members.filter(enemy=False)
+        return render(request, "enter_combat.html", {"this_combat": this_combat, "combat_members": combat_members,
+                        "turnee": turnee, "allies": allies, "enemies": enemies})
 
 
 @login_required
