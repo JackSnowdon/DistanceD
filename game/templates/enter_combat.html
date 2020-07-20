@@ -39,7 +39,7 @@
     <div class="row text-center">
         {% for c in combat_members %}
         <div class="col-md-4 col-12">
-            <div class="card mb-5 {% if c.turn_state == True %} this-turn {% endif %}">
+            <div class="card mb-5{% if c.turn_state == True %} this-turn{% endif %} {% if c.current_hit_points == 0 %} dead-card {% endif %}">
                 <div class="card-body">
                     {% if c.enemy == False %}
                     <h5 class="card-title card-ally">{{ c.name|title }}</h5>
@@ -110,7 +110,7 @@
                                 <div class="row text-center">
                                     <div class="col-12">
                                         <label for="damage">Attack Damage:</label>
-                                        <input type="number" class="attack-damage mb-3 form-control" id="damage" name="damage" min="1" max="500">
+                                        <input type="number" class="num-input mb-3 form-control" id="damage" name="damage" min="1" max="500">
                                     </div>
                                     <div class="col-12">
                                         <input class="btn btn-success" id="submit-attack" name="commit" type="submit" value="Attack">
@@ -156,7 +156,7 @@
                                 <div class="row text-center">
                                     <div class="col-12">
                                         <label for="heal-points">Healed For:</label>
-                                        <input type="number" class="heal-damage mb-3 form-control" id="heal-points" name="heal-points" min="1" max="500">
+                                        <input type="number" class="num-input mb-3 form-control" id="heal-points" name="heal-points" min="1" max="500">
                                     </div>
                                     <div class="col-12">
                                         <input class="btn btn-success" id="submit-heal" name="commit" type="submit" value="Heal">
@@ -171,4 +171,6 @@
         {% endif %} {% endfor %}
     </div>
 </section>
-{% endif %} {% endblock %}
+{% endif %} {% endblock %} {% if c.turn_state == True %} {% block script_js %}
+<script type="text/javascript" src="{% static 'js/combat-js.js' %}"></script>
+{% endblock %} {% endif %}

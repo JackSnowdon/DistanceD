@@ -203,10 +203,19 @@ def attack(request, pk, attacker):
     attacker = get_object_or_404(CombatMember, pk=attacker)
     if profile == this_combat.dm or profile.staff_access:
         if request.method == "POST":
+            if request.POST.get("damage") == "":
+                messages.error(
+                    request,
+                    f"Invalid Input",
+                    extra_tags="alert",
+                )
+                return redirect("enter_combat", this_combat.pk)
             damage = request.POST.get("damage")
             target = request.POST.get("target")
             defender = get_object_or_404(CombatMember, pk=target)
             defender.current_hit_points -= int(damage)
+            if defender.current_hit_points < 0:
+                defender.current_hit_points = 0
             defender.save()
             messages.error(
                 request, f"{attacker} Hit {defender} For {damage} HP!", extra_tags="alert"
@@ -226,10 +235,19 @@ def heal(request, pk, attacker):
     attacker = get_object_or_404(CombatMember, pk=attacker)
     if profile == this_combat.dm or profile.staff_access:
         if request.method == "POST":
+            if request.POST.get("heal-points") == "":
+                messages.error(
+                    request,
+                    f"Invalid Input",
+                    extra_tags="alert",
+                )
+                return redirect("enter_combat", this_combat.pk)
             hp = request.POST.get("heal-points")
             target = request.POST.get("target")
             defender = get_object_or_404(CombatMember, pk=target)
             defender.current_hit_points += int(hp)
+            if defender.current_hit_points > defender.max_hit_points:
+                defender.current_hit_points = defender.max_hit_points
             defender.save()
             messages.error(
                 request, f"{attacker} Heals {defender} For {hp} HP!", extra_tags="alert"
@@ -240,4 +258,3 @@ def heal(request, pk, attacker):
             request, "You Don't Have The Required Permissions", extra_tags="alert"
         )
     return redirect("enter_combat", this_combat.pk)
-

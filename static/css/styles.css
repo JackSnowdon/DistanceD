@@ -116,6 +116,11 @@
     color: #c90909;
 }
 
+.dead-card {
+    background-color: gray;
+    opacity: 0.5;
+}
+
 
 /* Combat Models */
 
