@@ -11,21 +11,39 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import vars
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-SECRET_KEY = os.environ.get("SECRET_KEY")
-ALLOWED_HOSTS = []
+if os.getenv("HOSTNAME") == "distanced.herokuapp.com":
+    ALLOWED_HOSTS = [os.getenv("HOSTNAME")]
+    SECRET_KEY = os.environ.get("SECRET_KEY")
+    DEBUG = False
+    DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))}
+else:
+    if os.path.exists("vars.py"):
+        import vars
+    ALLOWED_HOSTS = []
+    SECRET_KEY = os.environ.get("SECRET_KEY")
+    DEBUG = True
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        }
+    }
 
+# Uncomment below to access Prod database
+
+# DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))}
 
 # Application definition
 
 INSTALLED_APPS = [
+    "whitenoise.runserver_nostatic",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +59,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -68,17 +87,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'distanced.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 
 # Password validation
@@ -117,6 +125,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
