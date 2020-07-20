@@ -117,6 +117,13 @@
 }
 
 
+/* Combat Models */
+
+.target-list {
+    display: contents;
+}
+
+
 /* Admin/Profile */
 
 .table {

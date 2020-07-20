@@ -12,4 +12,5 @@ urlpatterns = [
     path(r'start_combat/<int:pk>/', start_combat, name="start_combat"),
     path(r'end_combat/<int:pk>/', end_combat, name="end_combat"),
     path(r'next_turn/<int:pk>/', next_turn, name="next_turn"),
+    path(r'attack/<int:pk>/<int:attacker>/', attack, name="attack"),
 ]
