@@ -11,8 +11,11 @@
 <section class="combat-header">
     <div class="row">
         <div class="col-12 text-center">
-            <h1>{{ this_combat.name }}</h1>
-            <h5>DM: {{ this_combat.dm }}</h5>
+            <h1>{{ this_combat.name|title }}</h1>
+            <h5 class="mb-2">DM: {{ this_combat.dm }}</h5>
+            {% if this_combat.combat_state == True %}
+            <h3>It's {{ turnee.0|title }}'s Turn</h3>
+            {% endif %}
         </div>
     </div>
 </section>
@@ -71,10 +74,10 @@
                             <a data-toggle="modal" href="#healModel{{ c.pk }}" class="btn btn-info mb-3">Heal</a>
                         </div>
                         {% endif %}
-                        <div class="col-6 ">
-                            <a href="{% url 'delete_combat_member' c.pk %}" role="button" class="btn btn-danger mb-2" aria-disabled="false">Delete</a>
+                        <div class="col-6">
+                            <a href="{% url 'delete_combat_member' c.pk %}" role="button" class="btn btn-danger mb-2{% if this_combat.combat_state == True %} disabled{% endif %}" aria-disabled="false">Delete</a>
                         </div>
-                        <div class="col-6 ">
+                        <div class="col-6">
                             <a href="{% url 'edit_combat_member' c.pk %}" role="button" class="btn btn-warning mb-2" aria-disabled="false">Edit</a>
                         </div>
                     </div>
