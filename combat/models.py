@@ -37,7 +37,7 @@ class CombatMember(models.Model):
     initiative = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(30)], default=0)
     current_hit_points = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(10000)], default=0)
     max_hit_points = models.PositiveIntegerField(validators=[MinValueValidator(0), MaxValueValidator(10000)], default=0)
-    game = models.ForeignKey(CombatInstance, related_name='sheets', on_delete=models.PROTECT)
+    game = models.ForeignKey(CombatInstance, related_name='sheets', on_delete=models.CASCADE)
     turn_state = models.BooleanField(default=False)
     enemy = models.BooleanField(default=False)
 

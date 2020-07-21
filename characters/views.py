@@ -93,6 +93,10 @@ def delete_base(request, pk):
 
 
 def return_ability_modifiers(b):
+    """
+    Takes a signle Base object
+    returns a dict with "str_mod" for strengh mod etc 
+    """
     modifiers = []
     str_mod = math.floor((b.strengh - 10) / 2)
     dex_mod = math.floor((b.dexterity - 10) / 2)

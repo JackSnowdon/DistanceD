@@ -7,9 +7,9 @@ from .forms import *
 # Create your views here.
 
 @login_required
-def game_index(request):
+def combat_index(request):
     combats = CombatInstance.objects.order_by("name")
-    return render(request, "game_index.html", {"combats": combats})
+    return render(request, "combat_index.html", {"combats": combats})
 
 
 @login_required
@@ -54,12 +54,12 @@ def delete_combat(request, pk):
         messages.error(
             request, f"Deleted {this_combat.name}", extra_tags="alert"
         )
-        return redirect(reverse("game_index"))
+        return redirect(reverse("combat_index"))
     else:
         messages.error(
             request, "You Don't Have The Required Permissions", extra_tags="alert"
         )
-        return redirect("game_index")
+        return redirect("combat_index")
 
 
 @login_required

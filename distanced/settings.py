@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'accounts',
     'home',
     'characters',
-    'game',
+    'combat',
 ]
 
 MIDDLEWARE = [
