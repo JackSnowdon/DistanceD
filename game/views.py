@@ -216,10 +216,14 @@ def attack(request, pk, attacker):
             defender.current_hit_points -= int(damage)
             if defender.current_hit_points < 0:
                 defender.current_hit_points = 0
-            defender.save()
-            messages.error(
+                messages.error(
+                request, f"{attacker} Downs {defender}", extra_tags="alert"
+                )
+            else:
+                messages.error(
                 request, f"{attacker} Hit {defender} For {damage} HP!", extra_tags="alert"
             )
+            defender.save()
             return redirect("next_turn", this_combat.pk)
     else:
         messages.error(

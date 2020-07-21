@@ -56,7 +56,14 @@
                     </div>
                     <hr>
                     <div class="row">
-                        {% if c.turn_state == True %}
+                        {% if c.turn_state == True and c.current_hit_points == 0 %}
+                        <div class="col-6">
+                            <a data-toggle="modal" href="#attackModel{{ c.pk }}" class="btn btn-success mb-3 disabled">Attack</a>
+                        </div>
+                        <div class="col-6">
+                            <a data-toggle="modal" href="#healModel{{ c.pk }}" class="btn btn-info mb-3 disabled">Heal</a>
+                        </div>
+                        {% elif c.turn_state == True %}
                         <div class="col-6">
                             <a data-toggle="modal" href="#attackModel{{ c.pk }}" class="btn btn-success mb-3">Attack</a>
                         </div>
@@ -123,7 +130,7 @@
             </div>
         </div>
 
-        <!-- ATTACK MODEL -->
+        <!-- HEAL MODEL -->
 
         <div class="modal" id="healModel{{ c.pk }}">
             <div class="modal-dialog">

@@ -97,8 +97,11 @@ def return_ability_modifiers(b):
     str_mod = math.floor((b.strengh - 10) / 2)
     dex_mod = math.floor((b.dexterity - 10) / 2)
     con_mod = math.floor((b.constitution - 10) / 2)
-    int_mod = math.floor((b.intelligence- 10) / 2)
+    int_mod = math.floor((b.intelligence - 10) / 2)
     wis_mod = math.floor((b.wisdom - 10) / 2)
     cha_mod = math.floor((b.charisma - 10) / 2)
+    stringList = ["str_mod", "dex_mod", "con_mod", "int_mod", "wis_mod", "cha_mod"]
     modifiers.extend((str_mod, dex_mod, con_mod, int_mod, wis_mod, cha_mod))
-    return modifiers
+    zipped = zip(stringList, modifiers)
+    dictMod = dict(zipped)
+    return dictMod
