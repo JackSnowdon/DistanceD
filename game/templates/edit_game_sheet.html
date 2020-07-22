@@ -18,8 +18,8 @@
     <div class="form-group body-text">
         {% csrf_token %}
         <div class="form-row">
-            <div class="form-group col-md-12 mb-0">
-                {{ sheet_form.base|as_crispy_field }}
+            <div class="form-group col-md-6 mb-0">
+                {{ sheet_form.current_hit_points|as_crispy_field }}
             </div>
         </div>
         <br>

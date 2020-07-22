@@ -58,7 +58,9 @@ def add_game_sheet(request, pk):
         sheet_form = NewGameSheet(request.POST)
         if sheet_form.is_valid():
             form = sheet_form.save(commit=False)
-            form.current_hit_points = form.base.max_hit_points
+            if form.current_hit_points > form.base.max_hit_points:
+                messages.error(request, f"Current HP ({form.current_hit_points}) can't exceed Max HP ({form.base.max_hit_points})", extra_tags="alert")
+                form.current_hit_points = form.base.max_hit_points
             form.game = this_game
             form.save()
             messages.error(request, "Added {0}".format(form.base.name), extra_tags="alert")
@@ -75,19 +77,17 @@ def edit_game_sheet(request, pk):
     profile = request.user.profile
     if profile == this_game.dm or profile.staff_access:
         if request.method == "POST":
-            sheet_form = NewGameSheet(request.POST, instance=this_sheet)
+            sheet_form = EditSheetHP(request.POST, instance=this_sheet)
             if sheet_form.is_valid():
                 form = sheet_form.save(commit=False)
                 if form.current_hit_points > this_sheet.base.max_hit_points:
                     messages.error(request, f"Current HP ({form.current_hit_points}) can't exceed Max HP ({this_sheet.base.max_hit_points})", extra_tags="alert")
                 else:
-                    if form.current_hit_points == 0:
-                        form.current_hit_points = this_sheet.base.max_hit_points
                     form.save()
                     messages.error(request, "Edited {0}".format(this_sheet.base.name), extra_tags="alert")
                     return redirect("enter_game", this_game.pk)
         else:
-            sheet_form = NewGameSheet(instance=this_sheet)
+            sheet_form = EditSheetHP(instance=this_sheet)
         return render(request, "edit_game_sheet.html", {"sheet_form": sheet_form, "this_game": this_game, "this_sheet": this_sheet})
     else:
         messages.error(

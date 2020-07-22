@@ -12,4 +12,11 @@ class NewGameSheet(forms.ModelForm):
 
     class Meta:
         model = GameSheet
-        exclude = ['game', 'current_hit_points']
+        exclude = ['game']
+
+
+class EditSheetHP(forms.ModelForm):
+
+    class Meta:
+        model = GameSheet
+        fields = ['current_hit_points']
