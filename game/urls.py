@@ -6,4 +6,5 @@ urlpatterns = [
     path('new_game_instance/', new_game_instance, name="new_game_instance"),
     path(r'enter_game/<int:pk>/', enter_game, name="enter_game"),
     path(r'delete_game/<int:pk>/', delete_game, name="delete_game"),
+    path(r'add_game_sheet/<int:pk>/', add_game_sheet, name="add_game_sheet"),
 ]

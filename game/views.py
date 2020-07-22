@@ -30,7 +30,7 @@ def new_game_instance(request):
 @login_required
 def enter_game(request, pk):
     this_game = get_object_or_404(GameInstance, pk=pk)
-    game_sheets = this_game.sheets.order_by("-initiative")
+    game_sheets = this_game.sheets.all
     return render(request, "enter_game.html", {"this_game": this_game, "game_sheets": game_sheets})
 
 
@@ -49,3 +49,20 @@ def delete_game(request, pk):
             request, "You Don't Have The Required Permissions", extra_tags="alert"
         )
         return redirect("game_index")
+
+
+@login_required
+def add_game_sheet(request, pk):
+    this_game = get_object_or_404(GameInstance, pk=pk)
+    if request.method == "POST":
+        sheet_form = NewGameSheet(request.POST)
+        if sheet_form.is_valid():
+            form = sheet_form.save(commit=False)
+            form.current_hit_points = form.base.max_hit_points
+            form.game = this_game
+            form.save()
+            messages.error(request, "Added {0}".format(form.base.name), extra_tags="alert")
+            return redirect("enter_game", this_game.pk)
+    else:
+        sheet_form = NewGameSheet()
+    return render(request, "add_game_sheet.html", {"sheet_form": sheet_form, "this_game": this_game })
