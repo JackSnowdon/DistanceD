@@ -20,5 +20,5 @@ class GameSheet(models.Model):
     game = models.ForeignKey(GameInstance, related_name='sheets', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return f"{self.base.name} Sheet in {self.game}"
 

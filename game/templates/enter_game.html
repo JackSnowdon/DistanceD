@@ -44,6 +44,14 @@
                         </div>
                     </div>
                     <hr>
+                    <div class="row">
+                        <div class="col-6">
+                            <a href="{% url 'delete_game_sheet' c.pk %}" role="button" class="btn btn-danger mb-2" aria-disabled="false">Delete</a>
+                        </div>
+                        <div class="col-6">
+                            <a href="{% url 'edit_game_sheet' c.pk %}" role="button" class="btn btn-warning mb-2" aria-disabled="false">Edit</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
