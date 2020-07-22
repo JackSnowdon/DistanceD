@@ -122,6 +122,13 @@
 }
 
 
+/* Game */
+
+.level-text {
+    font-weight: 300;
+}
+
+
 /* Combat Models */
 
 .target-list {

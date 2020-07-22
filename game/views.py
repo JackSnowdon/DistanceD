@@ -75,7 +75,7 @@ def edit_game_sheet(request, pk):
     this_sheet = get_object_or_404(GameSheet, pk=pk)
     this_game = this_sheet.game
     profile = request.user.profile
-    if profile == this_game.dm or profile.staff_access:
+    if profile == this_game.dm or profile == this_sheet.base.created_by:
         if request.method == "POST":
             sheet_form = EditSheetHP(request.POST, instance=this_sheet)
             if sheet_form.is_valid():
@@ -101,7 +101,7 @@ def delete_game_sheet(request, pk):
     this_sheet = get_object_or_404(GameSheet, pk=pk)
     this_game = this_sheet.game
     profile = request.user.profile
-    if profile == this_game.dm or profile.staff_access:
+    if profile == this_game.dm or profile == this_sheet.base.created_by:
         this_sheet.delete()
         messages.error(
             request, f"Deleted {this_sheet.base.name} from {this_game}", extra_tags="alert"
@@ -111,3 +111,24 @@ def delete_game_sheet(request, pk):
             request, "You Don't Have The Required Permissions", extra_tags="alert"
         )
     return redirect("enter_game", this_game.pk)
+
+
+@login_required
+def add_own_sheet(request, pk):
+    this_game = get_object_or_404(GameInstance, pk=pk)
+    profile = request.user.profile
+    if request.method == "POST":
+        sheet_form = AddOwnSheet(request.user, request.POST)
+        if sheet_form.is_valid():
+            form = sheet_form.save(commit=False)
+            if form.current_hit_points > form.base.max_hit_points:
+                messages.error(request, f"Current HP ({form.current_hit_points}) can't exceed Max HP ({form.base.max_hit_points})", extra_tags="alert")
+                form.current_hit_points = form.base.max_hit_points
+            form.game = this_game
+            form.save()
+            messages.error(request, "Added {0}".format(form.base.name), extra_tags="alert")
+            return redirect("enter_game", this_game.pk)
+    else:
+        sheet_form = AddOwnSheet(request.user)
+    return render(request, "add_game_sheet.html", {"sheet_form": sheet_form, "this_game": this_game})
+

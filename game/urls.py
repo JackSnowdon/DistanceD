@@ -9,4 +9,5 @@ urlpatterns = [
     path(r'add_game_sheet/<int:pk>/', add_game_sheet, name="add_game_sheet"),
     path(r'edit_game_sheet/<int:pk>/', edit_game_sheet, name="edit_game_sheet"),
     path(r'delete_game_sheet/<int:pk>/', delete_game_sheet, name="delete_game_sheet"),
+    path(r'add_own_sheet/<int:pk>/', add_own_sheet, name="add_own_sheet"),
 ]
