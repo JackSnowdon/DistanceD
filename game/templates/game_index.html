@@ -14,8 +14,8 @@
             <a href="{% url 'new_game_instance' %}" role="button" class="btn btn-success mb-2" aria-disabled="false">Start New Game</a>
             <h4>Games:</h4>
             {% for g in games %}
-            <p class="combat-link">- <a href="#">{{ g.name|title }}</a>
-                <a href="#" class="delete-combat"><i class="far fa-trash-alt"></i></a>
+            <p class="combat-link">- <a href="{% url 'enter_game' g.pk %}">{{ g.name|title }}</a>
+                <a href="{% url 'delete_game' g.pk %}" class="delete-combat"><i class="far fa-trash-alt"></i></a>
             </p>
             {% endfor %}
         </div>
