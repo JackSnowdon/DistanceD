@@ -26,10 +26,23 @@
     </div>
 </section>
 
-<section class="dm-sheets">
+{% else %}
+
+<section class="player-tools mb-3">
+    <div class="row text-center">
+        <div class="col-md-3">
+            <a href="{% url 'add_own_sheet' this_game.pk %}" role="button" class="btn btn-success" aria-disabled="false">Add Sheet</a>
+        </div>
+    </div>
+</section>
+
+{% endif %}
+
+<section class="sheets">
     <div class="row">
         <div class="col-12">
             <h4>Sheets:</h4>
+            {{ forloop.counter0.str_mod }}
         </div>
     </div>
     <div class="row text-center">
@@ -47,91 +60,38 @@
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <span>Strengh</br>{{ c.base.strengh }}</span>
+                            <p class="mb-0">Strengh</p>
+                            <h5 class="str-mod mb-0"></h5>
+                            <span class="str-score">{{ c.base.strengh }}</span>
                         </div>
                         <div class="col-6">
-                            <span>Dexterity</br>{{ c.base.dexterity }}</span>
+                            <p class="mb-0">Dexterity</p>
+                            <h5 class="dex-mod mb-0"></h5>
+                            <span class="dex-score">{{ c.base.dexterity }}</span>
                         </div>
                         <div class="col-6">
-                            <span>Constitution</br>{{ c.base.constitution }}</span>
+                            <p class="mb-0">Constitution</p>
+                            <h5 class="con-mod mb-0"></h5>
+                            <span class="con-score">{{ c.base.constitution }}</span>
                         </div>
                         <div class="col-6">
-                            <span>Intelligence</br>{{ c.base.intelligence }}</span>
+                            <p class="mb-0">Intelligence</p>
+                            <h5 class="int-mod mb-0"></h5>
+                            <span class="int-score">{{ c.base.intelligence }}</span>
                         </div>
                         <div class="col-6">
-                            <span>Wisdom</br>{{ c.base.wisdom }}</span>
+                            <p class="mb-0">Wisdom</p>
+                            <h5 class="wis-mod mb-0"></h5>
+                            <span class="wis-score">{{ c.base.wisdom }}</span>
                         </div>
                         <div class="col-6">
-                            <span>Charisma</br>{{ c.base.charisma }}</span>
+                            <p class="mb-0">Charisma</p>
+                            <h5 class="cha-mod mb-0"></h5>
+                            <span class="cha-score">{{ c.base.charisma }}</span>
                         </div>
                     </div>
                     {% endif %}
-                    <hr>
-                    <div class="row">
-                        <div class="col-6">
-                            <a href="{% url 'delete_game_sheet' c.pk %}" role="button" class="btn btn-danger mb-2" aria-disabled="false">Delete</a>
-                        </div>
-                        <div class="col-6">
-                            <a href="{% url 'edit_game_sheet' c.pk %}" role="button" class="btn btn-warning mb-2" aria-disabled="false">Edit</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-</section>
-
-{% else %}
-
-<section class="player-tools mb-3">
-    <div class="row text-center">
-        <div class="col-md-3">
-            <a href="{% url 'add_own_sheet' this_game.pk %}" role="button" class="btn btn-success" aria-disabled="false">Add Sheet</a>
-        </div>
-    </div>
-</section>
-
-<section class="player-sheets">
-    <div class="row">
-        <div class="col-12">
-            <h4>Sheets:</h4>
-        </div>
-    </div>
-    <div class="row text-center">
-        {% for c in game_sheets %}
-        <div class="col-md-4 col-12">
-            <div class="card mb-5">
-                <div class="card-body">
-                    <h5 class="card-title card-ally mb-0">{{ c.base.name|title }} <span class="small"> - {{ c.base.created_by }}</span></h5>
-                    <p class="level-text">Level {{ c.base.level }}</p>
-                    {% if c.base.created_by == user.profile %}
-                    <div class="row">
-                        <div class="col-6">
-                            <p class="card-text">HP</br>{{ c.current_hit_points }}/{{ c.base.max_hit_points }}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <span>Strengh</br>{{ c.base.strengh }}</span>
-                        </div>
-                        <div class="col-6">
-                            <span>Dexterity</br>{{ c.base.dexterity }}</span>
-                        </div>
-                        <div class="col-6">
-                            <span>Constitution</br>{{ c.base.constitution }}</span>
-                        </div>
-                        <div class="col-6">
-                            <span>Intelligence</br>{{ c.base.intelligence }}</span>
-                        </div>
-                        <div class="col-6">
-                            <span>Wisdom</br>{{ c.base.wisdom }}</span>
-                        </div>
-                        <div class="col-6">
-                            <span>Charisma</br>{{ c.base.charisma }}</span>
-                        </div>
-                    </div>
-                    <hr>
+                    <hr> {% if this_game.dm == user.profile %}
                     <div class="row">
                         <div class="col-6">
                             <a href="{% url 'delete_game_sheet' c.pk %}" role="button" class="btn btn-danger mb-2" aria-disabled="false">Delete</a>
@@ -147,5 +107,4 @@
         {% endfor %}
     </div>
 </section>
-
-{% endif %} {% endblock %}
+{% endblock %}
