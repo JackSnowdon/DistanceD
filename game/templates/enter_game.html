@@ -37,13 +37,35 @@
         <div class="col-md-4 col-12">
             <div class="card mb-5">
                 <div class="card-body">
-                    <h5 class="card-title card-ally mb-0">{{ c.base.name|title }}</h5>
+                    <h5 class="card-title card-ally mb-0">{{ c.base.name|title }} <span class="small"> - {{ c.base.created_by }}</span></h5>
                     <p class="level-text">Level {{ c.base.level }}</p>
+                    {% if c.base.created_by == user.profile %}
                     <div class="row">
-                        <div class="col-6">
-                            <p class="card-text">HP</br>{{ c.current_hit_points }}/{{ c.base.max_hit_points }}</p>
+                        <div class="col-12">
+                            <p class="card-text mb-2">Hit Points: {{ c.current_hit_points }}/{{ c.base.max_hit_points }}</p>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <span>Strengh</br>{{ c.base.strengh }}</span>
+                        </div>
+                        <div class="col-6">
+                            <span>Dexterity</br>{{ c.base.dexterity }}</span>
+                        </div>
+                        <div class="col-6">
+                            <span>Constitution</br>{{ c.base.constitution }}</span>
+                        </div>
+                        <div class="col-6">
+                            <span>Intelligence</br>{{ c.base.intelligence }}</span>
+                        </div>
+                        <div class="col-6">
+                            <span>Wisdom</br>{{ c.base.wisdom }}</span>
+                        </div>
+                        <div class="col-6">
+                            <span>Charisma</br>{{ c.base.charisma }}</span>
+                        </div>
+                    </div>
+                    {% endif %}
                     <hr>
                     <div class="row">
                         <div class="col-6">
@@ -89,6 +111,26 @@
                             <p class="card-text">HP</br>{{ c.current_hit_points }}/{{ c.base.max_hit_points }}</p>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <span>Strengh</br>{{ c.base.strengh }}</span>
+                        </div>
+                        <div class="col-6">
+                            <span>Dexterity</br>{{ c.base.dexterity }}</span>
+                        </div>
+                        <div class="col-6">
+                            <span>Constitution</br>{{ c.base.constitution }}</span>
+                        </div>
+                        <div class="col-6">
+                            <span>Intelligence</br>{{ c.base.intelligence }}</span>
+                        </div>
+                        <div class="col-6">
+                            <span>Wisdom</br>{{ c.base.wisdom }}</span>
+                        </div>
+                        <div class="col-6">
+                            <span>Charisma</br>{{ c.base.charisma }}</span>
+                        </div>
+                    </div>
                     <hr>
                     <div class="row">
                         <div class="col-6">
@@ -105,6 +147,5 @@
         {% endfor %}
     </div>
 </section>
-
 
 {% endif %} {% endblock %}

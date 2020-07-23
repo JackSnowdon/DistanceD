@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
+from characters.views import return_ability_modifiers
 
 # Create your views here.
 
@@ -30,8 +31,12 @@ def new_game_instance(request):
 @login_required
 def enter_game(request, pk):
     this_game = get_object_or_404(GameInstance, pk=pk)
-    game_sheets = this_game.sheets.all
-    return render(request, "enter_game.html", {"this_game": this_game, "game_sheets": game_sheets})
+    game_sheets = this_game.sheets.all()
+    mod_list = []
+    for sheet in game_sheets:
+        mods = return_ability_modifiers(sheet.base)
+        mod_list.append(mods)
+    return render(request, "enter_game.html", {"this_game": this_game, "game_sheets": game_sheets, "mod_list": mod_list})
 
 
 @login_required
