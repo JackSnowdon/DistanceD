@@ -58,39 +58,40 @@
                             <p class="card-text mb-2">Hit Points: {{ c.current_hit_points }}/{{ c.base.max_hit_points }}</p>
                         </div>
                     </div>
+                    {% for mods in mod_list %} {% if mods.name == c.base.name %}
                     <div class="row">
                         <div class="col-6">
                             <p class="mb-0">Strengh</p>
-                            <h5 class="str-mod mb-0"></h5>
-                            <span class="str-score">{{ c.base.strengh }}</span>
+                            <h5 class="str-mod mod-score mb-0">{{ mods.str_mod }}</h5>
+                            <span class="str-score stat-score">{{ c.base.strengh }}</span>
                         </div>
                         <div class="col-6">
                             <p class="mb-0">Dexterity</p>
-                            <h5 class="dex-mod mb-0"></h5>
-                            <span class="dex-score">{{ c.base.dexterity }}</span>
+                            <h5 class="dex-mod mod-score mb-0">{{ mods.dex_mod }}</h5>
+                            <span class="dex-score stat-score">{{ c.base.dexterity }}</span>
                         </div>
                         <div class="col-6">
                             <p class="mb-0">Constitution</p>
-                            <h5 class="con-mod mb-0"></h5>
-                            <span class="con-score">{{ c.base.constitution }}</span>
+                            <h5 class="con-mod mod-score mb-0">{{ mods.con_mod }}</h5>
+                            <span class="con-score stat-score">{{ c.base.constitution }}</span>
                         </div>
                         <div class="col-6">
                             <p class="mb-0">Intelligence</p>
-                            <h5 class="int-mod mb-0"></h5>
-                            <span class="int-score">{{ c.base.intelligence }}</span>
+                            <h5 class="int-mod mod-score mb-0">{{ mods.int_mod }}</h5>
+                            <span class="int-score stat-score">{{ c.base.intelligence }}</span>
                         </div>
                         <div class="col-6">
                             <p class="mb-0">Wisdom</p>
-                            <h5 class="wis-mod mb-0"></h5>
-                            <span class="wis-score">{{ c.base.wisdom }}</span>
+                            <h5 class="wis-mod mod-score mb-0">{{ mods.wis_mod }}</h5>
+                            <span class="wis-score stat-score">{{ c.base.wisdom }}</span>
                         </div>
                         <div class="col-6">
                             <p class="mb-0">Charisma</p>
-                            <h5 class="cha-mod mb-0"></h5>
-                            <span class="cha-score">{{ c.base.charisma }}</span>
+                            <h5 class="cha-mod mod-score mb-0">{{ mods.cha_mod }}</h5>
+                            <span class="cha-score stat-score">{{ c.base.charisma }}</span>
                         </div>
                     </div>
-                    {% endif %}
+                    {% endif %} {% endfor %} {% endif %}
                     <hr> {% if this_game.dm == user.profile %}
                     <div class="row">
                         <div class="col-6">

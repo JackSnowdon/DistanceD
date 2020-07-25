@@ -35,6 +35,7 @@ def enter_game(request, pk):
     mod_list = []
     for sheet in game_sheets:
         mods = return_ability_modifiers(sheet.base)
+        mods.update({"name" : sheet.base.name}) 
         mod_list.append(mods)
     return render(request, "enter_game.html", {"this_game": this_game, "game_sheets": game_sheets, "mod_list": mod_list})
 

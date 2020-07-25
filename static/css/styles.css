@@ -121,6 +121,15 @@
     opacity: 0.5;
 }
 
+.mod-score {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.stat-score {
+    font-size: 20px;
+}
+
 
 /* Game */
 
@@ -129,7 +138,7 @@
 }
 
 
-/* Combat Models */
+/* Combat Modals */
 
 .target-list {
     display: contents;
