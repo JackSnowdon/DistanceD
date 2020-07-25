@@ -50,7 +50,7 @@
         <div class="col-md-4 col-12">
             <div class="card mb-5">
                 <div class="card-body">
-                    <h5 class="card-title card-ally mb-0">{{ c.base.name|title }} <span class="small"> - {{ c.base.created_by }}</span></h5>
+                    <h5 class="card-title {% if c.enemy == False %} card-ally {% else %} card-enemy {% endif %} mb-0">{{ c.base.name|title }} <span class="small"> - {{ c.base.created_by }}</span></h5>
                     <p class="level-text">Level {{ c.base.level }}</p>
                     {% if c.base.created_by == user.profile %}
                     <div class="row">

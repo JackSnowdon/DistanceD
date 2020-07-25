@@ -20,7 +20,7 @@ class EditSheetHP(forms.ModelForm):
 
     class Meta:
         model = GameSheet
-        fields = ['current_hit_points']
+        fields = ['current_hit_points', 'enemy']
 
 
 class AddOwnSheet(forms.ModelForm):
